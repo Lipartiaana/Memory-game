@@ -1,0 +1,112 @@
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes showImg {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+body {
+  background-color: #333;
+}
+body header {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+body header .score {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 40px;
+}
+body .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .img-container .img-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+body .img-container .img-wrapper .card {
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  width: 250px;
+  height: 160px;
+  border-radius: 10px;
+}
+body .img-container .img-wrapper .card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+  opacity: 0;
+}
+body .img-container .img-wrapper .card:hover {
+  cursor: pointer;
+}
+body .img-container .img-wrapper .card.flipped {
+  animation: flip 0.8s ease-in-out forwards;
+}
+body .img-container .img-wrapper .card.flipped img {
+  animation: showImg 0.8s ease-in-out forwards;
+}
+body .img-container .modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+body .img-container .modal .modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  height: 500px;
+  background-color: rgba(198, 198, 207, 0.6);
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 70px;
+  color: #fff;
+}
+body .img-container .modal .modal-content img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+body .img-container .modal .modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #aaaaaa;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 1001;
+  transition: all 0.3s ease;
+}
+body .img-container .modal .modal-content .close:hover {
+  color: #000;
+  cursor: pointer;
+}/*# sourceMappingURL=global.css.map */
