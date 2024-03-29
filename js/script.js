@@ -2,11 +2,33 @@ import imagesArray from "./data.js";
 
 const imageWrapper = document.querySelector(".img-wrapper");
 const scoreElem = document.getElementById("score");
+const startBtns = document.querySelectorAll(".start-btn");
 
 const cards = [];
 let flippedCards = [];
 let score = 0;
 let isChecking = false;
+
+startBtns.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    const startModal = document.getElementById("start");
+    const finishModal = document.getElementById("finish");
+    startModal.style.display = "none";
+    finishModal.style.display = "none";
+    cards.forEach((card) => {
+      card.classList.remove("flipped");
+    });
+    flippedCards = [];
+    isChecking = false;
+    score = 0;
+    scoreElem.innerHTML = score;
+    shuffleArray(cards);
+    cards.forEach((card) => {
+      imageWrapper.appendChild(card);
+    });
+    startGame();
+  });
+});
 
 imagesArray.forEach((img) => {
   const card = document.createElement("div");
@@ -72,12 +94,12 @@ function checkMatch() {
     scoreElem.innerHTML = score;
 
     if (score === imagesArray.length) {
-      const modal = document.getElementById("myModal");
-      modal.style.display = "block";
+      const finishModal = document.getElementById("finish");
+      finishModal.style.display = "block";
 
       const closeButton = document.querySelector(".close");
       closeButton.addEventListener("click", () => {
-        modal.style.display = "none";
+        finishModal.style.display = "none";
       });
     }
 
@@ -95,11 +117,13 @@ function checkMatch() {
   }
 }
 
-cards.forEach((card) => {
-  setTimeout(() => {
-    card.classList.add("flipped");
-  }, 1000);
-  setTimeout(() => {
-    card.classList.remove("flipped");
-  }, 4000);
-});
+function startGame() {
+  cards.forEach((card) => {
+    setTimeout(() => {
+      card.classList.add("flipped");
+    }, 1000);
+    setTimeout(() => {
+      card.classList.remove("flipped");
+    }, 4000);
+  });
+}

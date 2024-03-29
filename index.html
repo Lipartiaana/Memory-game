@@ -12,11 +12,18 @@
       <div class="score">Score: <span id="score">0</span></div>
     </header>
     <div class="img-container">
-      <div id="myModal" class="modal">
+      <button class="btn start-btn restart-top-btn">Restart</button>
+      <div id="start" class="modal start-modal">
+        <div class="modal-content">
+          <button class="btn start-btn">Start Game</button>
+        </div>
+      </div>
+      <div id="finish" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
           <p>You won!</p>
-          <img src="./assets/giphy.gif" alt="" />
+          <img src="./assets/giphy.gif" alt="you won" />
+          <button class="btn start-btn restart-central-btn">Restart</button>
         </div>
       </div>
       <div class="img-wrapper"></div>
