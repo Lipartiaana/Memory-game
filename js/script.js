@@ -3,16 +3,28 @@ import imagesArray from "./data.js";
 const imageWrapper = document.querySelector(".img-wrapper");
 const scoreElem = document.getElementById("score");
 const startBtns = document.querySelectorAll(".start-btn");
+const startModal = document.getElementById("start");
+const finishModal = document.getElementById("finish");
+const finishMessage = document.getElementById("finish-message");
+const winImage = document.getElementById("win-image");
+const timer = document.getElementById("timer");
+
+const closeButton = document.querySelector(".close");
+closeButton.addEventListener("click", () => {
+  finishModal.style.display = "none";
+  timer.textContent = "01:00";
+});
 
 const cards = [];
 let flippedCards = [];
 let score = 0;
 let isChecking = false;
+let timeLeft = 60;
+let timerInterval;
 
 startBtns.forEach((btn) => {
   btn.addEventListener("click", function () {
-    const startModal = document.getElementById("start");
-    const finishModal = document.getElementById("finish");
+    timer.textContent = "01:00";
     startModal.style.display = "none";
     finishModal.style.display = "none";
     cards.forEach((card) => {
@@ -26,6 +38,8 @@ startBtns.forEach((btn) => {
     cards.forEach((card) => {
       imageWrapper.appendChild(card);
     });
+    clearInterval(timerInterval);
+    timeLeft = 60;
     startGame();
   });
 });
@@ -94,13 +108,9 @@ function checkMatch() {
     scoreElem.innerHTML = score;
 
     if (score === imagesArray.length) {
-      const finishModal = document.getElementById("finish");
       finishModal.style.display = "block";
-
-      const closeButton = document.querySelector(".close");
-      closeButton.addEventListener("click", () => {
-        finishModal.style.display = "none";
-      });
+      finishMessage.textContent = "You Win";
+      winImage.style.display = "block";
     }
 
     flippedCards = [];
@@ -126,4 +136,30 @@ function startGame() {
       card.classList.remove("flipped");
     }, 4000);
   });
+
+  setTimeout(() => {
+    timerInterval = setInterval(updateTimer, 1000);
+  }, 3000);
+}
+
+function updateTimer() {
+  let minutes = Math.floor(timeLeft / 60);
+  let seconds = Math.floor(timeLeft % 60);
+
+  let formattedTime =
+    (minutes < 10 ? "0" + minutes : minutes) +
+    ":" +
+    (seconds < 10 ? "0" + seconds : seconds);
+
+  timer.textContent = formattedTime;
+
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    timer.textContent = "00:00";
+    finishModal.style.display = "block";
+    finishMessage.textContent = "You Lose";
+    winImage.style.display = "none";
+  } else {
+    timeLeft--;
+  }
 }
